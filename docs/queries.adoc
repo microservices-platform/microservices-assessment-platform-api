@@ -7,7 +7,7 @@
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql  \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query { user { applications { name }, organizations { name } }}"}'
 ----
 
@@ -18,7 +18,7 @@ curl https://platform.microservices.io/prod/graphql  \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql  \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query { applications { id, name, created, modified }}"}'
 ----
 
@@ -30,7 +30,7 @@ curl https://platform.microservices.io/prod/graphql  \
 [source]
 ----
 curl 'https://platform.microservices.io/prod/graphql' \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query applications($organization: String) { applications(organization: $organization) { name, latestCompletedAssessment { name, topLevelScore, answers { section, score, answers { question, answer } }} } }","variables":{"organization":"Test Paying Organization 1606992054431"}}'
 ----
 
@@ -41,7 +41,7 @@ curl 'https://platform.microservices.io/prod/graphql' \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query application($name: String!) { application(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}'
 ----
 
@@ -52,7 +52,7 @@ curl https://platform.microservices.io/prod/graphql \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query uniqueApplication($name: String!) { uniqueApplication(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}'
 ----
 
@@ -63,7 +63,7 @@ curl https://platform.microservices.io/prod/graphql \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query applicationById($id: String!) { applicationById(id: $id) { id,name, created, modified }}","variables":{"id":"f3afc470-fc2a-11ea-87a7-b360a6f25f3a"}}'
 ----
 
@@ -74,7 +74,7 @@ curl https://platform.microservices.io/prod/graphql \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql' \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query { organizations { name, applications { id, name, created, modified } } }"}'
 ----
 
@@ -85,7 +85,7 @@ curl https://platform.microservices.io/prod/graphql' \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"query organization($name: String!) { organization(name: $name) { id, name, created, modified }}", "variables":{"name":"My organization"}}'
 ----
 
@@ -98,7 +98,7 @@ curl https://platform.microservices.io/prod/graphql \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql  \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"mutation CreateApplicationForUserMutation($name: String) { createApplicationForUser(name: $name) { id } }", "variables":{"name":"Example application"}}'
 ----
 
@@ -109,7 +109,7 @@ curl https://platform.microservices.io/prod/graphql  \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"mutation CreateApplicationInOrganizationMutation($organization: String, $name: String) { createApplicationInOrganization(organization: $organization, name: $name) { id } }", "variables":{"name":"My application","organization":"My Organization"}}'
 ----
 
@@ -121,7 +121,7 @@ __`
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"mutation CreateServiceForUserMutation($serviceName: String, $applicationName: String) { CreateServiceForUserMutation(serviceName: $serviceName, applicationName: $applicationName) { id } }","variables":{"serviceName":"My Service","applicationName":"My Application"}}'
 ----
 
@@ -132,7 +132,7 @@ curl https://platform.microservices.io/prod/graphql \
 [source]
 ----
 curl https://platform.microservices.io/prod/graphql \
--H 'Authorization: Basic accessKeyId:accessKeySecret' \
+--user accessKeyId:accessKeySecret \
 --data-binary '{"query":"mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) { createServiceInOrganization($organization: String, applicationName: $applicationName, serviceName: $serviceName) { id } }", "variables":{"organization": "My Organization","applicationName":"My Application", "serviceName":"My Service"}}'
 ----
 
