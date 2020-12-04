@@ -1,8 +1,5 @@
 = Requests queries
 
-== Queries
-
-=== Retrieve information about the user and their organizations and applications
 
 [source]
 ----
@@ -11,129 +8,196 @@ curl https://platform.microservices.io/prod/graphql  \
 --data-binary '{"query":"query { user { applications { name }, organizations { name } }}"}'
 ----
 
-`_{"query":"query { user { applications { name }, organizations { name } }}_`
+== Queries
 
-=== Retrieve user applications
 
+=== Retrieve information about the user and their organizations and applications
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql  \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query { applications { id, name, created, modified }}"}'
+{
+    "query": "query { 
+        user { applications { name }, organizations { name }}
+    }"
+}
 ----
 
-`_{"query":"query { applications { id, name, created, modified }}"}_`
+
+=== Retrieve user applications
+[source]
+----
+{
+    "query": "query {
+        applications { id, name, created, modified }
+    }"
+}
+----
 
 
 === Retrieve applications in organization with the last completed assessments
-
 [source]
 ----
-curl 'https://platform.microservices.io/prod/graphql' \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query applications($organization: String) { applications(organization: $organization) { name, latestCompletedAssessment { name, topLevelScore, answers { section, score, answers { question, answer } }} } }","variables":{"organization":"Test Paying Organization 1606992054431"}}'
+{
+    "query": "query
+        applications($organization: String) {
+            applications(organization: $organization) {
+                name,
+                latestCompletedAssessment {
+                    name,
+                    topLevelScore,
+                    answers { section, score, answers { question, answer } }
+                }
+            }
+        }",
+    "variables": { "organization": "My Organization" }
+}
 ----
-
-`_{"query":"query applications($organization: String) { applications(organization: $organization) { name, latestCompletedAssessment { name, topLevelScore, answers { section, score, answers { question, answer } }} } }","variables":{"organization":"Test Paying Organization 1606992054431"}}_`
 
 
 === Retrieve applications list by name
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query application($name: String!) { application(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}'
+{
+    "query": "query
+        application($name: String!) {
+            application(name: $name) {
+                id, name, created, modifiedm
+                services {
+                    id, name, created, modified,
+                    assessments {
+                        name,
+                        topLevelScore,
+                        answers { section, score, answers { question, answer } }
+                    },
+                    latestCompletedAssessment {
+                        name,
+                        topLevelScore,
+                        answers { section, score, answers { question, answer } }
+                    },
+                    application { id, name }
+                },
+                assessments {
+                    name,
+                    topLevelScore,
+                    answers { section, score, answers { question, answer } }
+                },
+                latestCompletedAssessment {
+                    name,
+                    topLevelScore,
+                    answers { section, score, answers { question, answer } }
+                }
+            }
+        }",
+    "variables": { "name": "Example application" }
+}
 ----
-
-`_{"query":"query application($name: String!) { application(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}_`
 
 
 === Retrieve a single application by name
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query uniqueApplication($name: String!) { uniqueApplication(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}'
+{
+    "query": "query
+        uniqueApplication($name: String!) {
+            uniqueApplication(name: $name) {
+                id, name, created, modified
+            }
+        }",
+    "variables": { "name": "Example application" }
+}
 ----
-
-`_{"query":"query uniqueApplication($name: String!) { uniqueApplication(name: $name) { id, name, created, modified }}", "variables":{"name":"Example application"}}_`
 
 
 === Retrieve application by ID
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query applicationById($id: String!) { applicationById(id: $id) { id,name, created, modified }}","variables":{"id":"f3afc470-fc2a-11ea-87a7-b360a6f25f3a"}}'
+{
+    "query": "query
+        applicationById($id: String!) {
+            applicationById(id: $id) { id,name, created, modified }
+        }",
+    "variables":{ "id": "f3afc470-fc2a-11ea-87a7-b360a6f25f3a" }
+}
 ----
-
-`_{"query":"query applicationById($id: String!) { applicationById(id: $id) { id,name, created, modified }}_`
 
 
 === Retrieve organizations list
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql' \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query { organizations { name, applications { id, name, created, modified } } }"}'
+{
+    "query": "query {
+        organizations { name, applications { id, name, created, modified } }
+    }"
+}
 ----
-
-`_{"query":"query { organizations { name, applications { id, name, created, modified } } }"}_`
 
 
 === Retrieve organization by name
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query organization($name: String!) { organization(name: $name) { id, name, created, modified }}", "variables":{"name":"My organization"}}'
+{
+    "query": "query organization($name: String!) {
+        organization(name: $name) { id, name, created, modified }
+    }",
+    "variables": { "name":"My organization" }
+}
 ----
-
-`_{"query":"query organization($name: String!) { organization(name: $name) { id, name, created, modified }}", "variables":{"name":"My organization"}}_`
 
 
 == Mutations
 
+
 === Create application
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql  \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"mutation CreateApplicationForUserMutation($name: String) { createApplicationForUser(name: $name) { id } }", "variables":{"name":"Example application"}}'
+{
+    "query": "mutation CreateApplicationForUserMutation($name: String) {
+        createApplicationForUser(name: $name) { id }
+    }",
+    "variables": { "name":"Example application" }
+}
 ----
-
-`_{"query":"mutation CreateApplicationForUserMutation($name: String) { createApplicationForUser(name: $name) { id } }", "variables":{"name":"Example application"}}_`
 
 
 === Create application in organization
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"mutation CreateApplicationInOrganizationMutation($organization: String, $name: String) { createApplicationInOrganization(organization: $organization, name: $name) { id } }", "variables":{"name":"My application","organization":"My Organization"}}'
+{
+    "query": "mutation CreateApplicationInOrganizationMutation($organization: String, $name: String) {
+        createApplicationInOrganization(organization: $organization, name: $name) { id }
+    }",
+    "variables":{
+        "name": "My application",
+        "organization": "My Organization"
+    }
+}
 ----
-
-`__{"query":"mutation CreateApplicationInOrganizationMutation($organization: String, $name: String) { createApplicationInOrganization(organization: $organization, name: $name) { id } }", "variables":{"name":"My application","organization":"My Organization"}}
-__`
 
 
 === Create service
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"mutation CreateServiceForUserMutation($serviceName: String, $applicationName: String) { CreateServiceForUserMutation(serviceName: $serviceName, applicationName: $applicationName) { id } }","variables":{"serviceName":"My Service","applicationName":"My Application"}}'
+{
+    "query": "mutation CreateServiceForUserMutation($serviceName: String, $applicationName: String) {
+        CreateServiceForUserMutation(serviceName: $serviceName, applicationName: $applicationName) { id } }",
+    "variables": {
+        "serviceName": "My Service",
+        "applicationName": "My Application"
+    }
+}
 ----
-
-`_{"query":"mutation CreateServiceForUserMutation($serviceName: String, $applicationName: String) { CreateServiceForUserMutation(serviceName: $serviceName, applicationName: $applicationName) { id } }", "variables":{"serviceName":"My Service","applicationName":"My Application"}}_`
 
 
 === Create service in organization
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) { createServiceInOrganization($organization: String, applicationName: $applicationName, serviceName: $serviceName) { id } }", "variables":{"organization": "My Organization","applicationName":"My Application", "serviceName":"My Service"}}'
+{
+    "query": "mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) {
+        createServiceInOrganization($organization: String, applicationName: $applicationName, serviceName: $serviceName) { id }
+    }",
+    "variables": {
+        "organization": "My Organization",
+        "applicationName": "My Application",
+        "serviceName": "My Service"
+    }
+}
 ----
-
-`_{"query":"mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) { createServiceInOrganization($organization: String, applicationName: $applicationName, serviceName: $serviceName) { id } }", "variables":{"organization": "My Organization","applicationName":"My Application", "serviceName":"My Service"}}_`
