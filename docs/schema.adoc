@@ -1,0 +1,109 @@
+= Schema
+
+[source, graphql]
+----
+type Application {
+        id: String
+        name: String,
+        created: Long,
+        modified: Long,
+        services: [Service],
+        service(name : String!): Service
+        assessments: [Assessment],
+        latestCompletedAssessment: Assessment
+    }
+
+    type Service {
+        id: String
+        name: String
+        created: Long,
+        modified: Long,
+        application: Application
+        assessments: [Assessment]
+        latestCompletedAssessment: Assessment
+    }
+
+    type Organization {
+        name: String
+        applications: [Application]
+    }
+
+    type User {
+        applications: [Application]
+        organizations: [Organization]
+    }
+
+    type Assessment {
+        id: String
+        name: String
+        state: AssessmentStates
+        created: Long
+        modified: Long,
+        answers: [AssessmentSection]
+        topLevelScore: Int
+    }
+
+    enum AssessmentStates {
+        IN_PROGRESS
+        COMPLETED
+        ABANDONED
+    }
+
+    type Answer {
+        question: String # The question title
+        answer: String # The answer title
+    }
+
+    type AssessmentSection {
+        section: String # The section title
+        score: Int
+        answers: [Answer]
+    }
+
+    type QuestionnaireSectionQuestion {
+        title: String
+        options: [String]
+    }
+
+    type QuestionnaireSection {
+        title: String
+        description: String
+        questions: [QuestionnaireSectionQuestion]
+    }
+
+    type Questionnaire {
+        id: String
+        version: Int
+        description: String
+        sections: [QuestionnaireSection]
+    }
+
+    type Query {
+        applications(organization: String): [Application]
+        application(name: String!, organization: String): [Application]
+        uniqueApplication(name: String, organization: String): Application
+        applicationById(id: String!, organization: String): Application
+        user: User
+        organizations: [Organization]
+        organization(name: String!): Organization
+        assessment(state: String!): Assessment
+        service(name: String!): Service
+    }
+
+    type Mutation {
+        createApplicationForUser(name: String): Application
+
+        createApplicationInOrganization(
+            organization: String
+            name: String
+        ): Application
+
+        createServiceForUser(applicationName : String serviceName : String): Service
+
+        createServiceInOrganization(
+            organization: String
+            applicationName: String
+            serviceName : String
+        ): Service
+    }
+----
