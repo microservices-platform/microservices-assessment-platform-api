@@ -3,10 +3,40 @@
 
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql  \
---user accessKeyId:accessKeySecret \
---data-binary '{"query":"query { user { applications { name }, organizations { name } }}"}'
+curl https://platform.microservices.io/prod/graphql --user "accessKeyId:accessKeySecret" --data-binary '{ "query": "query applicationById($id: String!) { applicationById(id: $id) { id, name }}", "variables": { "id": "c116d380-3570-11eb-a8bd-53f8899d49e3" }}'
 ----
+
+Response:
+[source]
+----
+{
+  "data": {
+    "applicationById": {
+      "id": "c116d380-3570-11eb-a8bd-53f8899d49e3",
+      "name": "My Application"
+    }
+  }
+}
+----
+
+
+Error response:
+[source]
+----
+{
+  "errors": [
+    {
+      "statusCode": 403,
+      "errorCode": 403,
+      "message": "Forbidden"
+    }
+  ],
+  "data": {
+    "applicationById": null
+  }
+}
+----
+
 
 == Queries
 
@@ -113,7 +143,7 @@ curl https://platform.microservices.io/prod/graphql  \
 {
     "query": "query
         applicationById($id: String!) {
-            applicationById(id: $id) { id,name, created, modified }
+            applicationById(id: $id) { id, name, created, modified }
         }",
     "variables":{ "id": "f3afc470-fc2a-11ea-87a7-b360a6f25f3a" }
 }
