@@ -35,10 +35,7 @@ Response:
       "errorCode": 403,
       "message": "Forbidden"
     }
-  ],
-  "data": {
-    "applicationById": null
-  }
+  ]
 }
 ----
 
