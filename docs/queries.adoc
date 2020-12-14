@@ -3,7 +3,7 @@
 
 [source]
 ----
-curl https://platform.microservices.io/prod/graphql --user "accessKeyId:accessKeySecret" --data-binary '{ "query": "query applicationById($id: String!) { applicationById(id: $id) { id, name }}", "variables": { "id": "c116d380-3570-11eb-a8bd-53f8899d49e3" }}'
+curl https://platform.microservices.io/graphql --user "accessKeyId:accessKeySecret" --data-binary '{ "query": "query applicationById($id: String!) { applicationById(id: $id) { id, name }}", "variables": { "id": "c116d380-3570-11eb-a8bd-53f8899d49e3" }}'
 ----
 
 Response:
