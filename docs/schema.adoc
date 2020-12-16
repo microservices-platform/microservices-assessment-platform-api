@@ -18,7 +18,6 @@ type Application {
         name: String
         created: Long,
         modified: Long,
-        application: Application
         assessments: [Assessment]
         latestCompletedAssessment: Assessment
     }
@@ -26,24 +25,20 @@ type Application {
     type Organization {
         name: String
         applications: [Application]
-    }
-
-    type User {
-        applications: [Application]
-        organizations: [Organization]
+        application(name: String!): [Application]
     }
 
     type Assessment {
         id: String
         name: String
-        state: AssessmentStates
+        state: AssessmentState
         created: Long
         modified: Long,
         answers: [AssessmentSection]
         topLevelScore: Int
     }
 
-    enum AssessmentStates {
+    enum AssessmentState {
         IN_PROGRESS
         COMPLETED
         ABANDONED
@@ -60,34 +55,13 @@ type Application {
         answers: [Answer]
     }
 
-    type QuestionnaireSectionQuestion {
-        title: String
-        options: [String]
-    }
-
-    type QuestionnaireSection {
-        title: String
-        description: String
-        questions: [QuestionnaireSectionQuestion]
-    }
-
-    type Questionnaire {
-        id: String
-        version: Int
-        description: String
-        sections: [QuestionnaireSection]
-    }
-
     type Query {
-        applications(organization: String): [Application]
-        application(name: String!, organization: String): [Application]
-        uniqueApplication(name: String, organization: String): Application
-        applicationById(id: String!, organization: String): Application
-        user: User
+        applications: [Application]
+        application(name: String!): [Application]
+        uniqueApplication(name: String): Application
+        applicationById(id: String!): Application
         organizations: [Organization]
         organization(name: String!): Organization
-        assessment(state: String!): Assessment
-        service(name: String!): Service
     }
 
     type Mutation {

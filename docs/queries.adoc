@@ -43,44 +43,20 @@ Response:
 == Queries
 
 
-=== Retrieve information about the user and their organizations and applications
-[source]
-----
-{
-    "query": "query { 
-        user { applications { name }, organizations { name }}
-    }"
-}
-----
-
-
-=== Retrieve user applications
+=== Retrieve user applications with the last completed assessments
 [source]
 ----
 {
     "query": "query {
-        applications { id, name, created, modified }
-    }"
-}
-----
-
-
-=== Retrieve applications in organization with the last completed assessments
-[source]
-----
-{
-    "query": "query
-        applications($organization: String) {
-            applications(organization: $organization) {
+        applications {
+            id, name, created, modified,
+            latestCompletedAssessment {
                 name,
-                latestCompletedAssessment {
-                    name,
-                    topLevelScore,
-                    answers { section, score, answers { question, answer } }
-                }
+                topLevelScore,
+                answers { section, score, answers { question, answer } }
             }
-        }",
-    "variables": { "organization": "My Organization" }
+        }
+    }"
 }
 ----
 
@@ -92,7 +68,7 @@ Response:
     "query": "query
         application($name: String!) {
             application(name: $name) {
-                id, name, created, modifiedm
+                id, name, created, modified,
                 services {
                     id, name, created, modified,
                     assessments {
@@ -168,9 +144,24 @@ Response:
 ----
 {
     "query": "query organization($name: String!) {
-        organization(name: $name) { id, name, created, modified }
+        organization(name: $name) { name }
     }",
-    "variables": { "name":"My organization" }
+    "variables": { "name":"My Organization" }
+}
+----
+
+
+=== Retrieve organization by name and find application within organization
+[source]
+----
+{
+    "query": "query organization($name: String!, $applicationName: String!) {
+        organization(name: $name) {
+            name,
+            application (name: $applicationName) { name }
+        }
+    }",
+    "variables": { "name":"My Organization", "applicationName": "My Application" }
 }
 ----
 
@@ -185,7 +176,7 @@ Response:
     "query": "mutation CreateApplicationForUserMutation($name: String) {
         createApplicationForUser(name: $name) { id }
     }",
-    "variables": { "name":"Example application" }
+    "variables": { "name":"My Application" }
 }
 ----
 
@@ -198,7 +189,7 @@ Response:
         createApplicationInOrganization(organization: $organization, name: $name) { id }
     }",
     "variables":{
-        "name": "My application",
+        "name": "My Application",
         "organization": "My Organization"
     }
 }
@@ -209,8 +200,8 @@ Response:
 [source]
 ----
 {
-    "query": "mutation CreateServiceForUserMutation($serviceName: String, $applicationName: String) {
-        CreateServiceForUserMutation(serviceName: $serviceName, applicationName: $applicationName) { id } }",
+    "query": "mutation createServiceForUser($serviceName: String, $applicationName: String) {
+        createServiceForUser(serviceName: $serviceName, applicationName: $applicationName) { id } }",
     "variables": {
         "serviceName": "My Service",
         "applicationName": "My Application"
@@ -224,7 +215,7 @@ Response:
 ----
 {
     "query": "mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) {
-        createServiceInOrganization($organization: String, applicationName: $applicationName, serviceName: $serviceName) { id }
+        createServiceInOrganization(organization: $organization, applicationName: $applicationName, serviceName: $serviceName) { id }
     }",
     "variables": {
         "organization": "My Organization",
