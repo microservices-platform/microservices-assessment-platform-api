@@ -2,5 +2,5 @@
 
 [source, graphql]
 ----
-include::https://github.com/microservices-platform/microservices-assessment-platform/blob/master/msat-api-graphql/lambda/lib/schema.js[tag=schema]
+include::https://content.platform.microservices.io-api-docs.s3.amazonaws.com/schema.js[tag=schema]
 ----
