@@ -1,0 +1,16 @@
+= Microservices Assessment Platform API documentation
+Chris Richardson Consulting, Inc <http://microservices.io>
+Copyright (c) 2021 Chris Richardson Consulting Inc. All rights reserved.
+
+The https://microservices.io/platform/microservice-architecture-assessment.html[Microservices Assessment Platform] has a GraphQL-based API.
+
+== Getting an API key
+
+To use the API you need an API key and secret.
+You can generate these in the https://platform.microservices.io/login[console].
+
+include::./query-example.adoc[]
+
+include::./schema.adoc[]
+
+include::./queries.adoc[]

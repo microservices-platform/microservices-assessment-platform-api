@@ -1,0 +1,7 @@
+= Microservices Assessment Platform API documentation
+
+This is the source repository for the https://microservices.io/platform/microservice-architecture-assessment.html[Microservices Assessment Platform] API documentation.
+
+It's a GraphQL-based API.
+
+You find the readable documentation https://microservices-platform.github.io/microservices-assessment-platform-api/[here].

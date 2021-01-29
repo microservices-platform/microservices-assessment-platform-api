@@ -1,50 +1,5 @@
-= Requests queries
 
-
-[source]
-----
-curl https://platform.microservices.io/graphql \
---user "accessKeyId:accessKeySecret" \
---data-binary '{"query":"query applications {  applications { id, name }}"}'
-----
-
-== Success
-HTTP Status: `200`
-
-Response:
-[source]
-----
-{
-  "data": {
-    "applications": [
-        {
-            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
-            "name": "My Application"
-        }
-    ]
-  }
-}
-----
-
-== Error
-HTTP Status: `200`
-
-Response:
-[source]
-----
-{
-  "errors": [
-    {
-      "statusCode": 403,
-      "errorCode": 403,
-      "message": "Forbidden"
-    }
-  ]
-}
-----
-
-
-== Queries
+== Example requests
 
 
 === Retrieve user applications with the last completed assessments
