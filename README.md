@@ -1,1 +1,0 @@
-# microservices-assessment-platform-api

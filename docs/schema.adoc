@@ -1,6 +1,0 @@
-= Schema
-
-[source, graphql]
-----
-include::http://content.platform.microservices.io-api-docs.s3.amazonaws.com/schema.js[tag=schema]
-----
