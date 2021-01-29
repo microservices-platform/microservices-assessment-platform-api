@@ -84,8 +84,7 @@ Response:
                         name,
                         topLevelScore,
                         answers { section, score, answers { question, answer } }
-                    },
-                    application { id, name }
+                    }
                 },
                 assessments {
                     name,
