@@ -3,7 +3,9 @@
 
 [source]
 ----
-curl https://platform.microservices.io/graphql --user "accessKeyId:accessKeySecret" --data-binary '{ "query": "query applicationById($id: String!) { applicationById(id: $id) { id, name }}", "variables": { "id": "c116d380-3570-11eb-a8bd-53f8899d49e3" }}'
+curl https://platform.microservices.io/graphql \
+--user "accessKeyId:accessKeySecret" \
+--data-binary '{"query":"query applications {  applications { id, name }}"}'
 ----
 
 == Success
@@ -14,10 +16,12 @@ Response:
 ----
 {
   "data": {
-    "applicationById": {
-      "id": "c116d380-3570-11eb-a8bd-53f8899d49e3",
-      "name": "My Application"
-    }
+    "applications": [
+        {
+            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
+            "name": "My Application"
+        }
+    ]
   }
 }
 ----
