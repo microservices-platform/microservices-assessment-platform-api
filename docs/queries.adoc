@@ -104,21 +104,6 @@ Response:
 ----
 
 
-=== Retrieve a single application by name
-[source]
-----
-{
-    "query": "query
-        uniqueApplication($name: String!) {
-            uniqueApplication(name: $name) {
-                id, name, created, modified
-            }
-        }",
-    "variables": { "name": "Example application" }
-}
-----
-
-
 === Retrieve application by ID
 [source]
 ----
