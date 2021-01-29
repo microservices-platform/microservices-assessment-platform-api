@@ -1,0 +1,214 @@
+= Requests queries
+
+
+[source]
+----
+curl https://platform.microservices.io/graphql \
+--user "accessKeyId:accessKeySecret" \
+--data-binary '{"query":"query applications {  applications { id, name }}"}'
+----
+
+== Success
+HTTP Status: `200`
+
+Response:
+[source]
+----
+{
+  "data": {
+    "applications": [
+        {
+            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
+            "name": "My Application"
+        }
+    ]
+  }
+}
+----
+
+== Error
+HTTP Status: `200`
+
+Response:
+[source]
+----
+{
+  "errors": [
+    {
+      "statusCode": 403,
+      "errorCode": 403,
+      "message": "Forbidden"
+    }
+  ]
+}
+----
+
+
+== Queries
+
+
+=== Retrieve user applications with the last completed assessments
+[source]
+----
+{
+    "query": "query {
+        applications {
+            id, name, created, modified,
+            latestCompletedAssessment {
+                name,
+                topLevelScore,
+                answers { section, score, answers { question, answer } }
+            }
+        }
+    }"
+}
+----
+
+
+=== Retrieve applications list by name
+[source]
+----
+{
+    "query": "query
+        application($name: String!) {
+            application(name: $name) {
+                id, name, created, modified,
+                services {
+                    id, name, created, modified,
+                    assessments {
+                        name,
+                        topLevelScore,
+                        answers { section, score, answers { question, answer } }
+                    },
+                    latestCompletedAssessment {
+                        name,
+                        topLevelScore,
+                        answers { section, score, answers { question, answer } }
+                    }
+                },
+                assessments {
+                    name,
+                    topLevelScore,
+                    answers { section, score, answers { question, answer } }
+                },
+                latestCompletedAssessment {
+                    name,
+                    topLevelScore,
+                    answers { section, score, answers { question, answer } }
+                }
+            }
+        }",
+    "variables": { "name": "Example application" }
+}
+----
+
+
+=== Retrieve application by ID
+[source]
+----
+{
+    "query": "query
+        applicationById($id: String!) {
+            applicationById(id: $id) { id, name, created, modified }
+        }",
+    "variables":{ "id": "f3afc470-fc2a-11ea-87a7-b360a6f25f3a" }
+}
+----
+
+
+=== Retrieve organizations list
+[source]
+----
+{
+    "query": "query {
+        organizations { name, applications { id, name, created, modified } }
+    }"
+}
+----
+
+
+=== Retrieve organization by name
+[source]
+----
+{
+    "query": "query organization($name: String!) {
+        organization(name: $name) { name }
+    }",
+    "variables": { "name":"My Organization" }
+}
+----
+
+
+=== Retrieve organization by name and find application within organization
+[source]
+----
+{
+    "query": "query organization($name: String!, $applicationName: String!) {
+        organization(name: $name) {
+            name,
+            application (name: $applicationName) { name }
+        }
+    }",
+    "variables": { "name":"My Organization", "applicationName": "My Application" }
+}
+----
+
+
+== Mutations
+
+
+=== Create application
+[source]
+----
+{
+    "query": "mutation CreateApplicationForUserMutation($name: String) {
+        createApplicationForUser(name: $name) { id }
+    }",
+    "variables": { "name":"My Application" }
+}
+----
+
+
+=== Create application in organization
+[source]
+----
+{
+    "query": "mutation CreateApplicationInOrganizationMutation($organization: String, $name: String) {
+        createApplicationInOrganization(organization: $organization, name: $name) { id }
+    }",
+    "variables":{
+        "name": "My Application",
+        "organization": "My Organization"
+    }
+}
+----
+
+
+=== Create service
+[source]
+----
+{
+    "query": "mutation createServiceForUser($serviceName: String, $applicationName: String) {
+        createServiceForUser(serviceName: $serviceName, applicationName: $applicationName) { id } }",
+    "variables": {
+        "serviceName": "My Service",
+        "applicationName": "My Application"
+    }
+}
+----
+
+
+=== Create service in organization
+[source]
+----
+{
+    "query": "mutation createServiceInOrganization($organization: String, $applicationName: String, $serviceName: String) {
+        createServiceInOrganization(organization: $organization, applicationName: $applicationName, serviceName: $serviceName) { id }
+    }",
+    "variables": {
+        "organization": "My Organization",
+        "applicationName": "My Application",
+        "serviceName": "My Service"
+    }
+}
+----
