@@ -7,7 +7,9 @@ The https://microservices.io/platform/microservice-architecture-assessment.html[
 == Getting an API key
 
 To use the API you need an API key and secret.
-You can generate these in the https://platform.microservices.io/login[console].
+You can generate these in the https://platform.microservices.io/apps/profile/access[console].
+
+include::./console-how-to.adoc[]
 
 include::./query-example.adoc[]
 
