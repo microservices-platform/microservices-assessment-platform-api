@@ -5,3 +5,5 @@ if [ ! -d "public" ] ; then
 fi
 
 asciidoctor docs/microservices-assessment-platform-api.adoc -b html -o public/index.html -a allow-uri-read
+
+cp -Rf docs/images public/images

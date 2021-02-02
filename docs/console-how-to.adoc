@@ -1,0 +1,23 @@
+=== How to Locate the https://platform.microservices.io/apps/profile/access[Access Keys Management] Page
+
+* Step 1: From the user menu select 'Settings...'
+
+image::images/img-00-navigation-to-settings.png[align="center", width=90%]
+
+to navigate to the https://platform.microservices.io/apps/profile[Settings page].
+
+* Step 2: From this page, press on 'Access Keys' button:
+
+image::images/img-01-settings-navigate-to-keys.png[align="center", width=90%]
+
+
+=== How to Generate Keys in the Console
+
+From the https://platform.microservices.io/apps/profile/access[Access Keys Management] Page, press the 'Generate' button:
+
+image::images/img-02-access-keys-generation.png[align="center", width=90%]
+
+In a few moments the Access Key ID and the Secret Access Key will have been generated, the examples will have these values incorporated in them:
+
+image::images/img-03-access-keys-generated.png[align="center", width=90%]
+
