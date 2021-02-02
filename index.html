@@ -453,6 +453,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>The <a href="https://microservices.io/platform/microservice-architecture-assessment.html">Microservices Assessment Platform</a> has a GraphQL-based API.</p>
 </div>
+<div class="paragraph">
+<p>Here is an example query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>curl https://platform.microservices.io/graphql \
+--user "accessKeyId:accessKeySecret" \
+--data-binary '{"query":"query applications {  applications { id, name }}"}'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "data": {
+    "applications": [
+        {
+            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
+            "name": "My Application"
+        }
+    ]
+  }
+}</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -478,60 +505,52 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="paragraph">
 <p>To use the API you need an API key and secret.
-You can generate these in the <a href="https://platform.microservices.io/login">console</a>.</p>
+You can generate these in the <a href="https://platform.microservices.io/apps/profile/access">console</a>.</p>
 </div>
-<div class="listingblock">
+<div class="ulist">
+<ul>
+<li>
+<p>Step 1: From the user menu select 'Settings&#8230;&#8203;'</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlight"><code>curl https://platform.microservices.io/graphql \
---user "accessKeyId:accessKeySecret" \
---data-binary '{"query":"query applications {  applications { id, name }}"}'</code></pre>
+<img src="images/img-00-navigation-to-settings.png" alt="img 00 navigation to settings" width="90%">
+</div>
+</div>
+<div class="paragraph">
+<p>to navigate to the <a href="https://platform.microservices.io/apps/profile">Settings page</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Step 2: From this page, press on 'Access Keys' button:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="images/img-01-settings-navigate-to-keys.png" alt="img 01 settings navigate to keys" width="90%">
 </div>
 </div>
 <div class="sect2">
-<h3 id="_success">Success</h3>
+<h3 id="_how_to_generate_keys_in_the_console">How to Generate Keys in the Console</h3>
 <div class="paragraph">
-<p>HTTP Status: <code>200</code></p>
+<p>From the <a href="https://platform.microservices.io/apps/profile/access">Access Keys Management</a> Page, press the 'Generate' button:</p>
 </div>
-<div class="paragraph">
-<p>Response:</p>
-</div>
-<div class="listingblock">
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlight"><code>{
-  "data": {
-    "applications": [
-        {
-            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
-            "name": "My Application"
-        }
-    ]
-  }
-}</code></pre>
+<img src="images/img-02-access-keys-generation.png" alt="img 02 access keys generation" width="90%">
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_error">Error</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>HTTP Status: <code>200</code></p>
 </div>
 <div class="paragraph">
-<p>Response:</p>
+<p>In a few moments the Access Key ID and the Secret Access Key will have been generated, the examples will have these values incorporated in them:</p>
 </div>
-<div class="listingblock">
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlight"><code>{
-  "errors": [
-    {
-      "statusCode": 403,
-      "errorCode": 403,
-      "message": "Forbidden"
-    }
-  ]
-}</code></pre>
+<img src="images/img-03-access-keys-generated.png" alt="img 03 access keys generated" width="90%">
+</div>
 </div>
 </div>
 </div>
@@ -619,6 +638,56 @@ You can generate these in the <a href="https://platform.microservices.io/login">
             serviceName : String
         ): Service
     }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_success_and_error_responses">Success and error responses</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_success_response">Success response</h3>
+<div class="paragraph">
+<p>HTTP Status: <code>200</code></p>
+</div>
+<div class="paragraph">
+<p>Response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+  "data": {
+    "applications": [
+        {
+            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
+            "name": "My Application"
+        }
+    ]
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_error_response">Error response</h3>
+<div class="paragraph">
+<p>HTTP Status: <code>200</code></p>
+</div>
+<div class="paragraph">
+<p>Response:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>{
+  "errors": [
+    {
+      "statusCode": 403,
+      "errorCode": 403,
+      "message": "Forbidden"
+    }
+  ]
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -810,7 +879,7 @@ You can generate these in the <a href="https://platform.microservices.io/login">
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-29 14:36:55 -0800
+Last updated 2021-02-02 15:46:30 -0800
 </div>
 </div>
 </body>
