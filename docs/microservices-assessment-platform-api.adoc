@@ -4,6 +4,8 @@ Copyright (c) 2021 Chris Richardson Consulting Inc. All rights reserved.
 
 The https://microservices.io/platform/microservice-architecture-assessment.html[Microservices Assessment Platform] has a GraphQL-based API.
 
+include::./query-example.adoc[]
+
 == Got questions?
 
 If you have questions or feedback please
@@ -11,14 +13,8 @@ If you have questions or feedback please
 * https://github.com/microservices-platform/microservices-assessment-platform-api/issues[Create an issue]
 * Post in the https://msa-platform-users.slack.com/[Slack Workspace] http://users-slack.platform.microservices.io/[Join]
 
-== Getting an API key
-
-To use the API you need an API key and secret.
-You can generate these in the https://platform.microservices.io/apps/profile/access[console].
 
 include::./console-how-to.adoc[]
-
-include::./query-example.adoc[]
 
 include::./schema.adoc[]
 

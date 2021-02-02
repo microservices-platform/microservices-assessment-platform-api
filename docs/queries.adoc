@@ -1,3 +1,43 @@
+== Success and error responses
+
+
+=== Success response
+
+HTTP Status: `200`
+
+Response:
+[source]
+----
+{
+  "data": {
+    "applications": [
+        {
+            "id": "8013da5c-59b3-421e-b8a6-8d5607754c4c",
+            "name": "My Application"
+        }
+    ]
+  }
+}
+----
+
+=== Error response
+
+HTTP Status: `200`
+
+Response:
+[source]
+----
+{
+  "errors": [
+    {
+      "statusCode": 403,
+      "errorCode": 403,
+      "message": "Forbidden"
+    }
+  ]
+}
+----
+
 
 == Example requests
 

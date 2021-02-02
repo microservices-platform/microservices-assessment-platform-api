@@ -1,4 +1,7 @@
-=== How to Locate the https://platform.microservices.io/apps/profile/access[Access Keys Management] Page
+== Getting an API key
+
+To use the API you need an API key and secret.
+You can generate these in the https://platform.microservices.io/apps/profile/access[console].
 
 * Step 1: From the user menu select 'Settings...'
 
@@ -20,4 +23,3 @@ image::images/img-02-access-keys-generation.png[align="center", width=90%]
 In a few moments the Access Key ID and the Secret Access Key will have been generated, the examples will have these values incorporated in them:
 
 image::images/img-03-access-keys-generated.png[align="center", width=90%]
-

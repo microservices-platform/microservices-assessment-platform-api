@@ -1,4 +1,5 @@
 
+Here is an example query:
 
 [source]
 ----
@@ -7,12 +8,8 @@ curl https://platform.microservices.io/graphql \
 --data-binary '{"query":"query applications {  applications { id, name }}"}'
 ----
 
-=== Success
+Here is the response:
 
-HTTP Status: `200`
-
-Response:
-[source]
 ----
 {
   "data": {
@@ -23,23 +20,5 @@ Response:
         }
     ]
   }
-}
-----
-
-== Error
-
-HTTP Status: `200`
-
-Response:
-[source]
-----
-{
-  "errors": [
-    {
-      "statusCode": 403,
-      "errorCode": 403,
-      "message": "Forbidden"
-    }
-  ]
 }
 ----
