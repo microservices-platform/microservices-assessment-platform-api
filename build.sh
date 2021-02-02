@@ -6,4 +6,4 @@ fi
 
 asciidoctor docs/microservices-assessment-platform-api.adoc -b html -o public/index.html -a allow-uri-read
 
-cp -Rf docs/images public/images
+cp -r docs/images/ public/images
