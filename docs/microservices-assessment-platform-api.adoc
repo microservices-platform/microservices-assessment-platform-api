@@ -19,3 +19,5 @@ include::./console-how-to.adoc[]
 include::./schema.adoc[]
 
 include::./queries.adoc[]
+
+include::./build-service.adoc[]
