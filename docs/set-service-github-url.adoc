@@ -1,0 +1,16 @@
+== Set github url metadata property to service
+
+To set github url metadata property to service you can run:
+[source]
+----
+./msat-set-service-repo-url-metadata.sh application_name service_name organization_name
+----
+
+It will create service if it does not exist and set github repository as metadata property.
+To run this script environment variables MSAT_ACCESS_KEY_ID and MSAT_SECRET_ACCESS_KEY must be set. +
+Also, you can set API endpoint where requests will be sent:
+[source]
+----
+./msat-set-service-repo-url-metadata.sh --api-endpoint endpoint application_name service_name organization_name
+----
+Default endpoint is https://platform.microservices.io/graphql

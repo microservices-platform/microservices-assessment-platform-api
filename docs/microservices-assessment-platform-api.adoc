@@ -20,4 +20,4 @@ include::./schema.adoc[]
 
 include::./queries.adoc[]
 
-include::./build-service.adoc[]
+include::./set-service-github-url.adoc[]

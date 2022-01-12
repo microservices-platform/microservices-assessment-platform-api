@@ -1,11 +1,30 @@
 #! /bin/bash -e
 
+while [ -n "$1" ]
+do
+	case $1 in
+	--api-endpoint)
+		api_endpoint=${2?}
+		shift
+		;;
+	*)
+		break
+		;;
+	esac
+	shift
+done
+
+if [ -z $api_endpoint ]
+then
+	api_endpoint="https://platform.microservices.io/graphql"
+fi
+
 application=${1?}
 service=${2?}
 organization=$3
 
-curl -X POST "$MSAT_API_ENDPOINT" \
--u $MSAT_USER_LOGIN:$MSAT_USER_PASSWORD \
+curl -X POST "$api_endpoint" \
+-u ${MSAT_ACCESS_KEY_ID?}:${MSAT_SECRET_ACCESS_KEY?} \
 -d '
   {
     "query": "mutation findOrCreateServiceByName ($serviceName: ServiceName!) { findOrCreateServiceByName (serviceName: $serviceName) { organizationId applicationId serviceId } }",
@@ -19,10 +38,10 @@ curl -X POST "$MSAT_API_ENDPOINT" \
   }
 '
 
-github_repo=`git remote -v | grep -o "origin\s.*\s(fetch)" | awk '{ print $2 }'`
+github_repo=`git remote get-url origin`
 
-curl -X POST "$MSAT_API_ENDPOINT" \
--u $MSAT_USER_LOGIN:$MSAT_USER_PASSWORD \
+curl -X POST "$api_endpoint" \
+-u ${MSAT_ACCESS_KEY_ID?}:${MSAT_SECRET_ACCESS_KEY?} \
 -d '
   {
     "query": "mutation updateServiceMetadata ($organization: String, $applicationName: String!, $serviceName: String!, $metadata: [MetadataInput!]!) {\n    updateServiceMetadata (organization: $organization, applicationName: $applicationName, serviceName: $serviceName, metadata: $metadata)\n}",
