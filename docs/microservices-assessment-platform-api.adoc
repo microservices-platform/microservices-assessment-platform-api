@@ -19,3 +19,5 @@ include::./console-how-to.adoc[]
 include::./schema.adoc[]
 
 include::./queries.adoc[]
+
+include::./set-service-github-url.adoc[]
