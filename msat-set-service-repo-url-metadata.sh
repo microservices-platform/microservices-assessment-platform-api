@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+api_endpoint="https://platform.microservices.io/graphql"
+
 while [ -n "$1" ]
 do
 	case $1 in
@@ -13,11 +15,6 @@ do
 	esac
 	shift
 done
-
-if [ -z $api_endpoint ]
-then
-	api_endpoint="https://platform.microservices.io/graphql"
-fi
 
 application=${1?}
 service=${2?}
